@@ -1,4 +1,6 @@
 import folium
+import io
+
 from query_incidents import QueryDF
 
 
@@ -14,8 +16,10 @@ class EditMap:
         self.map = None
         self.map = folium.Map(self.location)
 
-    def export_map(self, mapname: str):
-        self.map.save(mapname)
+    def export_map(self, mapobj: io):
+        map_io = self.map.save(mapobj, close_file=False)
+
+        return map_io
 
 
 class QueryMap:
@@ -33,7 +37,10 @@ class QueryMap:
 
             self.map_edit.add_marker_to_map(latitude, longitude)
 
-        self.map_edit.export_map("map.html")
+        map_data = io.BytesIO()
+        self.map_edit.export_map(map_data)
+
+        return map_data
 
     def show_marks_by_neighborhood(self, nb_name: str):
         nb_ptr_df = self.query_tool.search_by_neighborhood(
@@ -43,12 +50,16 @@ class QueryMap:
 
     def show_marks_by_date(self, year: int, month: int):
         year_ptr_df = self.query_tool.search_by_date(year, month)
-        self._show_points_in_map(year_ptr_df)
+        map_data = self._show_points_in_map(year_ptr_df)
+
+        return map_data
 
     def show_marks_by_neighborhood_and_date(self, nbh_name: str, year: int, month: int):
         ptr_df = self.query_tool.search_by_neighborhood_and_date(nbh_name,
                                                                  year, month)
-        self._show_points_in_map(ptr_df)
+        map_data = self._show_points_in_map(ptr_df)
+
+        return map_data
 
 
 query_tool = QueryMap('incidents.csv')
