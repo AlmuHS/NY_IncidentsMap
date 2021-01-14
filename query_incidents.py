@@ -28,15 +28,21 @@ class QueryDF:
         query_date = self.incidents_df.loc[(self.incidents_df["Date"] >= date_start) & (
             self.incidents_df["Date"] <= date_end)]
 
-        return query_date
+        num_inc = len(query_date)
+
+        return query_date, num_inc
 
     def search_by_neighborhood(self, nbh_name: str):
         query_nb = self.incidents_df.loc[self.incidents_df["Neighborhood"] == nbh_name]
 
-        return query_nb
+        num_inc = len(query_nb)
+
+        return query_nb, num_inc
 
     def search_by_neighborhood_and_date(self, nbh_name: str, date_start: str, date_end: str):
         query = self.incidents_df.loc[(self.incidents_df["Neighborhood"] == nbh_name) & (
             self.incidents_df["Date"] >= date_start) & (self.incidents_df["Date"] <= date_end)]
 
-        return query
+        num_inc = len(query)
+
+        return query, num_inc

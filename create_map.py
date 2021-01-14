@@ -43,21 +43,29 @@ class QueryMap:
         return map_data
 
     def show_marks_by_neighborhood(self, nb_name: str):
-        nb_ptr_df = self.query_tool.search_by_neighborhood(
+        nb_ptr_df, num_inc = self.query_tool.search_by_neighborhood(
             nb_name)
+        map_data = self._show_points_in_map(nb_ptr_df)
 
-        self._show_points_in_map(nb_ptr_df)
+        return map_data, num_inc
 
     def show_marks_by_date(self, date_start: str, date_end: str):
-        year_ptr_df = self.query_tool.search_by_date(date_start, date_end)
+        year_ptr_df, num_inc = self.query_tool.search_by_date(
+            date_start, date_end)
         map_data = self._show_points_in_map(year_ptr_df)
 
-        return map_data
+        return map_data, num_inc
 
     def show_marks_by_neighborhood_and_date(self, nbh_name: str, date_start: str, date_end: str):
-        ptr_df = self.query_tool.search_by_neighborhood_and_date(
+        ptr_df, num_inc = self.query_tool.search_by_neighborhood_and_date(
             nbh_name, date_start, date_end)
         map_data = self._show_points_in_map(ptr_df)
+
+        return map_data, num_inc
+
+    def show_map(self):
+        map_data = io.BytesIO()
+        self.map_edit.export_map(map_data)
 
         return map_data
 
