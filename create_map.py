@@ -48,23 +48,23 @@ class QueryMap:
 
         self._show_points_in_map(nb_ptr_df)
 
-    def show_marks_by_date(self, year: int, month: int):
-        year_ptr_df = self.query_tool.search_by_date(year, month)
+    def show_marks_by_date(self, date_start: str, date_end: str):
+        year_ptr_df = self.query_tool.search_by_date(date_start, date_end)
         map_data = self._show_points_in_map(year_ptr_df)
 
         return map_data
 
-    def show_marks_by_neighborhood_and_date(self, nbh_name: str, year: int, month: int):
-        ptr_df = self.query_tool.search_by_neighborhood_and_date(nbh_name,
-                                                                 year, month)
+    def show_marks_by_neighborhood_and_date(self, nbh_name: str, date_start: str, date_end: str):
+        ptr_df = self.query_tool.search_by_neighborhood_and_date(
+            nbh_name, date_start, date_end)
         map_data = self._show_points_in_map(ptr_df)
 
         return map_data
 
 
 query_tool = QueryMap('incidents.csv')
-query_tool.show_marks_by_date(2018, 4)
-query_tool.show_marks_by_date(2020, 4)
+query_tool.show_marks_by_date("2018-04", "2018-06")
+query_tool.show_marks_by_date("2016-04", "2020-04")
 query_tool.show_marks_by_neighborhood('Gravesend-Sheepshead Bay')
 query_tool.show_marks_by_neighborhood_and_date(
-    'Gravesend-Sheepshead Bay', 2020, 6)
+    'Gravesend-Sheepshead Bay', "2020-01", "2020-06")

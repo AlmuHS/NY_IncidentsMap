@@ -10,6 +10,8 @@ class QueryDF:
         self.incidents_df.columns = [
             "Date", "Longitude", "Latitude", "Neighborhood"]
 
+        self.incidents_df["Date"] = pd.to_datetime(self.incidents_df["Date"])
+
         return self.incidents_df
 
     def _get_date_str(self, year: int, month: int):
@@ -22,9 +24,9 @@ class QueryDF:
 
         return date_str
 
-    def search_by_date(self, year: int, month: int):
-        date_str = self._get_date_str(year, month)
-        query_date = self.incidents_df.loc[self.incidents_df["Date"] == date_str]
+    def search_by_date(self, date_start: str, date_end: str):
+        query_date = self.incidents_df.loc[(self.incidents_df["Date"] >= date_start) & (
+            self.incidents_df["Date"] <= date_end)]
 
         return query_date
 
@@ -33,9 +35,8 @@ class QueryDF:
 
         return query_nb
 
-    def search_by_neighborhood_and_date(self, nbh_name: str, year: int, month: int):
-        date_str = self._get_date_str(year, month)
+    def search_by_neighborhood_and_date(self, nbh_name: str, date_start: str, date_end: str):
         query = self.incidents_df.loc[(self.incidents_df["Neighborhood"] == nbh_name) & (
-            self.incidents_df["Date"] == date_str)]
+            self.incidents_df["Date"] >= date_start) & (self.incidents_df["Date"] <= date_end)]
 
         return query
