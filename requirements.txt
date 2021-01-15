@@ -1,0 +1,6 @@
+pandas
+numpy
+psycopg2
+postgis
+folium
+pyqt5
