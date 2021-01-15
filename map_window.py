@@ -97,6 +97,15 @@ class Ui_MainWindow(object):
         data = self.map.show_map()
         self.webEngineView.setHtml(data.getvalue().decode())
 
+    def _update_map(self, data, date, num_inc: int):
+        if date != 0:
+            date = date.strftime("%m-%Y")
+
+        self.month_desc_label.setText(str(date))
+
+        self.webEngineView.setHtml(data.getvalue().decode())
+        self.incidents_desc_label.setText(str(num_inc))
+
     def _show_marks_by_neighborhood(self):
         nbh_name = self.nb_PlainTextEdit.toPlainText()
         data, num_inc = self.map.show_marks_by_neighborhood(nbh_name)
@@ -112,34 +121,15 @@ class Ui_MainWindow(object):
             nbh_name, start_date, end_date)
 
         data, num_inc, date = self.map_iterator.show_reg()
-
-        if date != 0:
-            date = date.strftime("%m-%Y")
-
-        self.month_desc_label.setText(str(date))
-
-        self.webEngineView.setHtml(data.getvalue().decode())
-        self.incidents_desc_label.setText(str(num_inc))
+        self._update_map(data, date, num_inc)
 
     def _show_marks_next_date(self):
         data, num_inc, date = self.map_iterator.show_next_reg()
-        self.webEngineView.setHtml(data.getvalue().decode())
-        self.incidents_desc_label.setText(str(num_inc))
-
-        if date != 0:
-            date = date.strftime("%m-%Y")
-
-        self.month_desc_label.setText(str(date))
+        self._update_map(data, date, num_inc)
 
     def _show_marks_back_date(self):
         data, num_inc, date = self.map_iterator.show_back_reg()
-        self.webEngineView.setHtml(data.getvalue().decode())
-        self.incidents_desc_label.setText(str(num_inc))
-
-        if date != 0:
-            date = date.strftime("%m-%Y")
-
-        self.month_desc_label.setText(str(date))
+        self._update_map(data, date, num_inc)
 
     def initUI(self):
         self._show_map()
