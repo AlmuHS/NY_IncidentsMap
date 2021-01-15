@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import QtWebEngineWidgets
 import sys
 
-from create_map import QueryMap
+from create_map import QueryMap, MapIterator
 
 
 class Ui_MainWindow(object):
@@ -48,7 +48,7 @@ class Ui_MainWindow(object):
         self.incidents_label.setGeometry(QtCore.QRect(390, 450, 81, 19))
         self.incidents_label.setObjectName("label_4")
         self.incidents_desc_label = QtWidgets.QLabel(self.centralwidget)
-        self.incidents_desc_label.setGeometry(QtCore.QRect(480, 450, 81, 31))
+        self.incidents_desc_label.setGeometry(QtCore.QRect(480, 450, 81, 19))
         self.incidents_desc_label.setObjectName("plainTextEdit_4")
         self.nb_label = QtWidgets.QLabel(self.centralwidget)
         self.nb_label.setGeometry(QtCore.QRect(430, 480, 41, 19))
@@ -107,15 +107,38 @@ class Ui_MainWindow(object):
         nbh_name = self.nb_PlainTextEdit.toPlainText()
         start_date = self.StartDateEdit.date().toPyDate()
         end_date = self.EndDateEdit.date().toPyDate()
-        data, num_inc = self.map.show_marks_by_neighborhood_and_date(
+
+        self.map_iterator = self.map.show_marks_by_neighborhood_and_date_range(
             nbh_name, start_date, end_date)
+
+        data, num_inc, date = self.map_iterator.show_reg()
+
+        self.month_desc_label.setText(str(date))
+
         self.webEngineView.setHtml(data.getvalue().decode())
         self.incidents_desc_label.setText(str(num_inc))
+
+    def _show_marks_next_date(self):
+        data, num_inc, date = self.map_iterator.show_next_reg()
+        self.webEngineView.setHtml(data.getvalue().decode())
+        self.incidents_desc_label.setText(str(num_inc))
+
+        self.month_desc_label.setText(str(date))
+
+    def _show_marks_back_date(self):
+        data, num_inc, date = self.map_iterator.show_back_reg()
+        self.webEngineView.setHtml(data.getvalue().decode())
+        self.incidents_desc_label.setText(str(num_inc))
+
+        self.month_desc_label.setText(str(date))
 
     def initUI(self):
         self._show_map()
         self.QueryPushButton.clicked.connect(
             self._show_marks_by_neighborhood_date)
+
+        self.NextPushButton.clicked.connect(self._show_marks_next_date)
+        self.BackPushButton.clicked.connect(self._show_marks_back_date)
 
 
 if __name__ == "__main__":
