@@ -34,7 +34,10 @@ class QueryMap:
         self.map_edit = EditMap([40.541, -74.178])
 
     def _show_points_in_map(self, point_list: list):
-        self.map_edit.clean_map()
+        latitude = float(point_list['Latitude'].iloc[0])
+        longitude = float(point_list['Longitude'].iloc[0])
+
+        self.map_edit = EditMap([latitude, longitude])
 
         for i, point in point_list.iterrows():
             latitude = float(point['Latitude'])
