@@ -103,17 +103,15 @@ class Ui_MainWindow(object):
         self.map = QueryMap('incidents.csv')
         data = self.map.show_map()
         self.webEngineView.setHtml(data.getvalue().decode())
-        self.webEngineView.resize(640, 480)
-        self.webEngineView.show()
 
     def _update_map(self, data, date, num_inc: int):
-        if date != 0:
+        if num_inc > 0:
             date = date.strftime("%m-%Y")
 
-        self.month_desc_label.setText(str(date))
+            self.month_desc_label.setText(str(date))
 
-        self.webEngineView.setHtml(data.getvalue().decode())
-        self.incidents_desc_label.setText(str(num_inc))
+            self.webEngineView.setHtml(data.getvalue().decode())
+            self.incidents_desc_label.setText(str(num_inc))
 
     def _show_marks_by_neighborhood(self):
         nbh_name = self.nb_ComboBox.toPlainText()
@@ -130,17 +128,36 @@ class Ui_MainWindow(object):
             nbh_name, start_date, end_date)
 
         data, num_inc, date = self.map_iterator.show_reg()
-        self._update_map(data, date, num_inc)
+        if date != 0:
+            self._update_map(data, date, num_inc)
+            self.BackPushButton.setDisabled(False)
+            self.NextPushButton.setDisabled(False)
+        else:
+            self.BackPushButton.setDisabled(True)
+            self.NextPushButton.setDisabled(True)
 
     def _show_marks_next_date(self):
-        data, num_inc, date = self.map_iterator.show_next_reg()
-        self._update_map(data, date, num_inc)
+        if self.map_iterator:
+            data, num_inc, date = self.map_iterator.show_next_reg()
+
+            self.BackPushButton.setDisabled(False)
+            if date == 0:
+                self.NextPushButton.setDisabled(True)
+            else:
+                self._update_map(data, date, num_inc)
 
     def _show_marks_back_date(self):
-        data, num_inc, date = self.map_iterator.show_back_reg()
-        self._update_map(data, date, num_inc)
+        if self.map_iterator:
+            data, num_inc, date = self.map_iterator.show_back_reg()
+
+            self.NextPushButton.setDisabled(False)
+            if date == 0:
+                self.BackPushButton.setDisabled(True)
+            else:
+                self._update_map(data, date, num_inc)
 
     def initUI(self):
+        self.map_iterator = None
         self._show_map()
         self._init_nb_ComboBox()
         self.QueryPushButton.clicked.connect(
