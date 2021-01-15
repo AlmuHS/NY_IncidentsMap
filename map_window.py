@@ -64,7 +64,7 @@ class Ui_MainWindow(object):
         self.end_date_label.setGeometry(QtCore.QRect(160, 480, 81, 19))
         self.end_date_label.setObjectName("label_2")
         self.nb_ComboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.nb_ComboBox.setGeometry(QtCore.QRect(480, 480, 110, 31))
+        self.nb_ComboBox.setGeometry(QtCore.QRect(480, 480, 240, 31))
         self.nb_ComboBox.setObjectName("plainTextEdit_5")
         self.BackPushButton = QtWidgets.QPushButton(self.centralwidget)
         self.BackPushButton.setGeometry(QtCore.QRect(480, 520, 41, 21))
