@@ -54,7 +54,7 @@ class Ui_MainWindow(object):
         self.nb_label.setGeometry(QtCore.QRect(430, 480, 41, 19))
         self.nb_label.setObjectName("label_5")
         self.month_desc_label = QtWidgets.QLabel(self.centralwidget)
-        self.month_desc_label.setGeometry(QtCore.QRect(480, 420, 91, 31))
+        self.month_desc_label.setGeometry(QtCore.QRect(480, 415, 81, 31))
         self.month_desc_label.setObjectName("month label")
         self.month_label = QtWidgets.QLabel(self.centralwidget)
         self.month_label.setGeometry(QtCore.QRect(440, 420, 31, 19))
@@ -113,6 +113,9 @@ class Ui_MainWindow(object):
 
         data, num_inc, date = self.map_iterator.show_reg()
 
+        if date != 0:
+            date = date.strftime("%m-%Y")
+
         self.month_desc_label.setText(str(date))
 
         self.webEngineView.setHtml(data.getvalue().decode())
@@ -123,12 +126,18 @@ class Ui_MainWindow(object):
         self.webEngineView.setHtml(data.getvalue().decode())
         self.incidents_desc_label.setText(str(num_inc))
 
+        if date != 0:
+            date = date.strftime("%m-%Y")
+
         self.month_desc_label.setText(str(date))
 
     def _show_marks_back_date(self):
         data, num_inc, date = self.map_iterator.show_back_reg()
         self.webEngineView.setHtml(data.getvalue().decode())
         self.incidents_desc_label.setText(str(num_inc))
+
+        if date != 0:
+            date = date.strftime("%m-%Y")
 
         self.month_desc_label.setText(str(date))
 
