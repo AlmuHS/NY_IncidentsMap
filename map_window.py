@@ -103,6 +103,8 @@ class Ui_MainWindow(object):
         self.map = QueryMap('incidents.csv')
         data = self.map.show_map()
         self.webEngineView.setHtml(data.getvalue().decode())
+        self.webEngineView.resize(640, 480)
+        self.webEngineView.show()
 
     def _update_map(self, data, date, num_inc: int):
         if date != 0:
