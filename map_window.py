@@ -13,6 +13,7 @@ from PyQt5 import QtWebEngineWidgets
 import sys
 
 from create_map import QueryMap, MapIterator
+from query_incidents import QueryDF
 
 
 class Ui_MainWindow(object):
@@ -62,9 +63,9 @@ class Ui_MainWindow(object):
         self.end_date_label = QtWidgets.QLabel(self.centralwidget)
         self.end_date_label.setGeometry(QtCore.QRect(160, 480, 81, 19))
         self.end_date_label.setObjectName("label_2")
-        self.nb_PlainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.nb_PlainTextEdit.setGeometry(QtCore.QRect(480, 480, 110, 31))
-        self.nb_PlainTextEdit.setObjectName("plainTextEdit_5")
+        self.nb_ComboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.nb_ComboBox.setGeometry(QtCore.QRect(480, 480, 110, 31))
+        self.nb_ComboBox.setObjectName("plainTextEdit_5")
         self.BackPushButton = QtWidgets.QPushButton(self.centralwidget)
         self.BackPushButton.setGeometry(QtCore.QRect(480, 520, 41, 21))
         self.BackPushButton.setObjectName("pushButton_2")
@@ -92,6 +93,12 @@ class Ui_MainWindow(object):
         self.start_date_label.setText(
             _translate("MainWindow", "Fecha inicial"))
 
+    def _init_nb_ComboBox(self):
+        query_df = QueryDF('incidents.csv')
+        nb_list = query_df.get_neighborhood_list()
+
+        self.nb_ComboBox.addItems(nb_list)
+
     def _show_map(self):
         self.map = QueryMap('incidents.csv')
         data = self.map.show_map()
@@ -107,13 +114,13 @@ class Ui_MainWindow(object):
         self.incidents_desc_label.setText(str(num_inc))
 
     def _show_marks_by_neighborhood(self):
-        nbh_name = self.nb_PlainTextEdit.toPlainText()
+        nbh_name = self.nb_ComboBox.toPlainText()
         data, num_inc = self.map.show_marks_by_neighborhood(nbh_name)
         self.webEngineView.setHtml(data.getvalue().decode())
         self.incidents_desc_label.setText(str(num_inc))
 
     def _show_marks_by_neighborhood_date(self):
-        nbh_name = self.nb_PlainTextEdit.toPlainText()
+        nbh_name = str(self.nb_ComboBox.currentText())
         start_date = self.StartDateEdit.date().toPyDate()
         end_date = self.EndDateEdit.date().toPyDate()
 
@@ -133,6 +140,7 @@ class Ui_MainWindow(object):
 
     def initUI(self):
         self._show_map()
+        self._init_nb_ComboBox()
         self.QueryPushButton.clicked.connect(
             self._show_marks_by_neighborhood_date)
 

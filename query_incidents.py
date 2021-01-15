@@ -17,6 +17,13 @@ class QueryDF:
 
         return self.incidents_df
 
+    def get_neighborhood_list(self):
+        nb_list = self.incidents_df["Neighborhood"].drop_duplicates()
+        nb_list.sort_values(inplace=True)
+        nb_list = nb_list.tolist()
+
+        return nb_list
+
     def _get_date_str(self, year: int, month: int):
         if month < 10:
             month_str = f"0{month}"
