@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import QtWebEngineWidgets
+from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
 import sys
 
 from create_map import QueryMap, MapIterator
@@ -135,39 +136,39 @@ class Ui_MainWindow(object):
         self.map_iterator = self.map.show_marks_by_neighborhood_and_date_range(
             nbh_name, start_date, end_date)
 
+        self.BackPushButton.setDisabled(True)
+        self.NextPushButton.setDisabled(False)
         data, num_inc, date = self.map_iterator.show_reg()
-        if date != 0:
-            self._update_map(data, date, num_inc)
-            self.BackPushButton.setDisabled(False)
-            self.NextPushButton.setDisabled(False)
-        else:
-            self.BackPushButton.setDisabled(True)
-            self.NextPushButton.setDisabled(True)
+
+        self._update_map(data, date, num_inc)
 
     def _show_marks_next_date(self):
         if self.map_iterator:
-            data, num_inc, date = self.map_iterator.show_next_reg()
+            data, num_inc, date, end = self.map_iterator.show_next_reg()
 
-            self.BackPushButton.setDisabled(False)
-            if date == 0:
+            if end:
                 self.NextPushButton.setDisabled(True)
             else:
-                self._update_map(data, date, num_inc)
+                self.BackPushButton.setDisabled(False)
+
+            self._update_map(data, date, num_inc)
 
     def _show_marks_back_date(self):
         if self.map_iterator:
-            data, num_inc, date = self.map_iterator.show_back_reg()
+            data, num_inc, date, end = self.map_iterator.show_back_reg()
 
-            self.NextPushButton.setDisabled(False)
-            if date == 0:
+            if end:
                 self.BackPushButton.setDisabled(True)
             else:
+                self.NextPushButton.setDisabled(False)
                 self._update_map(data, date, num_inc)
 
     def initUI(self):
         self.map_iterator = None
         self._show_map()
         self._init_nb_ComboBox()
+        self.StartDateEdit.setMinimumDate(QDate(2015, 1, 1))
+        self.EndDateEdit.setMinimumDate(QDate(2015, 1, 1))
         self.QueryPushButton.clicked.connect(
             self._show_marks_by_neighborhood_date)
 
