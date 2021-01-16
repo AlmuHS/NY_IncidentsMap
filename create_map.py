@@ -95,6 +95,7 @@ class MapIterator:
         self.query_df = query_df
         self.date_list = date_list
         self.index = 0
+        self.end = False
 
     def show_reg(self):
         query_tool = QueryMap(df=self.query_df)
@@ -103,6 +104,7 @@ class MapIterator:
             date = self.date_list[self.index]
         else:
             date = 0
+            self.end = True
 
         map_data, num_inc = query_tool.show_marks_by_date(date)
 
@@ -111,15 +113,24 @@ class MapIterator:
     def show_next_reg(self):
         if self.index < len(self.date_list):
             self.index += 1
+            self.end = False
 
         map_data, num_inc, date = self.show_reg()
 
-        return map_data, num_inc, date
+        if self.index == len(self.date_list):
+            self.end = True
+
+        return map_data, num_inc, date, self.end
 
     def show_back_reg(self):
-        if self.index >= 0:
+
+        if self.index > 0:
             self.index -= 1
+            self.end = False
 
         map_data, num_inc, date = self.show_reg()
 
-        return map_data, num_inc, date
+        if self.index == 0:
+            self.end = True
+
+        return map_data, num_inc, date, self.end
