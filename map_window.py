@@ -20,6 +20,7 @@ from query_incidents import QueryDF
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        MainWindow.setWindowTitle("NY Incidents Map")
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         sizePolicy = QtWidgets.QSizePolicy(
@@ -31,10 +32,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setMinimumSize(QtCore.QSize(800, 600))
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setObjectName("horizontalLayout")
         self.EndDateEdit = QtWidgets.QDateEdit(self.centralwidget)
         self.EndDateEdit.setGeometry(QtCore.QRect(250, 470, 91, 31))
         self.EndDateEdit.setObjectName("dateEdit_2")
@@ -54,8 +51,6 @@ class Ui_MainWindow(object):
         self.webEngineView.setLayoutDirection(QtCore.Qt.LayoutDirectionAuto)
         self.webEngineView.setUrl(QtCore.QUrl("about:blank"))
         self.webEngineView.setObjectName("webEngineView")
-        self.verticalLayout.addWidget(self.webEngineView)
-        self.horizontalLayout.addWidget(self.webEngineView)
         self.StartDateEdit = QtWidgets.QDateEdit(self.centralwidget)
         self.StartDateEdit.setGeometry(QtCore.QRect(250, 430, 91, 31))
         self.StartDateEdit.setObjectName("plainTextEdit")
@@ -64,14 +59,18 @@ class Ui_MainWindow(object):
         self.incidents_label.setGeometry(QtCore.QRect(390, 450, 81, 19))
         self.incidents_label.setObjectName("label_4")
         self.incidents_desc_label = QtWidgets.QLabel(self.centralwidget)
-        self.incidents_desc_label.setGeometry(QtCore.QRect(480, 450, 81, 19))
+        self.incidents_desc_label.setGeometry(QtCore.QRect(480, 450, 81, 29))
         self.incidents_desc_label.setObjectName("plainTextEdit_4")
+        self.incidents_desc_label.setStyleSheet(
+            "background-color: white; border: 1px solid black;")
         self.nb_label = QtWidgets.QLabel(self.centralwidget)
         self.nb_label.setGeometry(QtCore.QRect(430, 480, 41, 19))
         self.nb_label.setObjectName("label_5")
         self.month_desc_label = QtWidgets.QLabel(self.centralwidget)
         self.month_desc_label.setGeometry(QtCore.QRect(480, 415, 81, 31))
         self.month_desc_label.setObjectName("month label")
+        self.month_desc_label.setStyleSheet(
+            "background-color: white; border: 1px solid black;")
         self.month_label = QtWidgets.QLabel(self.centralwidget)
         self.month_label.setGeometry(QtCore.QRect(440, 420, 31, 19))
         self.month_label.setObjectName("label_3")
