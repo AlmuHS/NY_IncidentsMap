@@ -31,6 +31,10 @@ class Ui_MainWindow(object):
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setMinimumSize(QtCore.QSize(800, 600))
         self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.EndDateEdit = QtWidgets.QDateEdit(self.centralwidget)
         self.EndDateEdit.setGeometry(QtCore.QRect(250, 470, 91, 31))
         self.EndDateEdit.setObjectName("dateEdit_2")
@@ -47,9 +51,11 @@ class Ui_MainWindow(object):
         self.webEngineView.setMinimumSize(QtCore.QSize(791, 361))
         self.webEngineView.setMaximumSize(QtCore.QSize(791, 361))
         self.webEngineView.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        self.webEngineView.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.webEngineView.setLayoutDirection(QtCore.Qt.LayoutDirectionAuto)
         self.webEngineView.setUrl(QtCore.QUrl("about:blank"))
         self.webEngineView.setObjectName("webEngineView")
+        self.verticalLayout.addWidget(self.webEngineView)
+        self.horizontalLayout.addWidget(self.webEngineView)
         self.StartDateEdit = QtWidgets.QDateEdit(self.centralwidget)
         self.StartDateEdit.setGeometry(QtCore.QRect(250, 430, 91, 31))
         self.StartDateEdit.setObjectName("plainTextEdit")
@@ -161,7 +167,8 @@ class Ui_MainWindow(object):
                 self.BackPushButton.setDisabled(True)
             else:
                 self.NextPushButton.setDisabled(False)
-                self._update_map(data, date, num_inc)
+
+            self._update_map(data, date, num_inc)
 
     def initUI(self):
         self.map_iterator = None
