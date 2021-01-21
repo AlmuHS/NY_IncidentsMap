@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import QtWebEngineWidgets
-from PyQt5.QtCore import QDate, QTime, QDateTime, Qt, QFile
+from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 
@@ -194,6 +194,7 @@ if __name__ == "__main__":
 
     mainWindow = QtWidgets.QMainWindow()
     window = MainWindow()
+    window.setWindowTitle("NY Incidents Map")
     window.show()
 
     sys.exit(app.exec())
