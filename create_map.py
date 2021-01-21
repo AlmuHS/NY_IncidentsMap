@@ -1,5 +1,6 @@
 import pandas as pd
 import folium
+import folium.plugins
 import io
 
 from query_incidents import QueryDF
@@ -8,7 +9,13 @@ from query_incidents import QueryDF
 class EditMap:
     def __init__(self, location: list):
         self.location = location
-        self.map = folium.Map(location)
+        self.map = folium.Map(location, zoom_start=200)
+
+    def create_markercluster(self):
+        self.marker_cluster = folium.plugins.MarkerCluster().add_to(self.map)
+
+    def add_marker_to_cluster(self, latitude: float, longitude: float):
+        folium.Marker([latitude, longitude]).add_to(self.marker_cluster)
 
     def add_marker_to_map(self, latitude: float, longitude: float):
         folium.Marker([latitude, longitude]).add_to(self.map)
@@ -16,6 +23,9 @@ class EditMap:
     def clean_map(self):
         self.map = None
         self.map = folium.Map(self.location)
+
+    def fit_map_zoom(self, pnt_min: pd.DataFrame, pnt_max: pd.DataFrame):
+        self.map.fit_bounds([pnt_min, pnt_max])
 
     def export_map(self, mapobj: io):
         map_io = self.map.save(mapobj, close_file=False)
@@ -33,18 +43,37 @@ class QueryMap:
 
         self.map_edit = EditMap([40.541, -74.178])
 
+    def _calculate_min_point(self, point_list: list):
+        min_pnt = point_list[['Latitude',
+                              'Longitude']].min().values.tolist()
+
+        return min_pnt
+
+    def _calculate_max_point(self, point_list: list):
+        max_pnt = point_list[['Latitude',
+                              'Longitude']].max().values.tolist()
+
+        return max_pnt
+
     def _show_points_in_map(self, point_list: list):
         if len(point_list) > 0:
             latitude = float(point_list['Latitude'].iloc[0])
             longitude = float(point_list['Longitude'].iloc[0])
 
             self.map_edit = EditMap([latitude, longitude])
+            self.map_edit.create_markercluster()
 
             for i, point in point_list.iterrows():
                 latitude = float(point['Latitude'])
                 longitude = float(point['Longitude'])
 
-                self.map_edit.add_marker_to_map(latitude, longitude)
+                self.map_edit.add_marker_to_cluster(latitude, longitude)
+
+            min_pnt = self._calculate_min_point(point_list)
+            max_pnt = self._calculate_max_point(point_list)
+
+            self.map_edit.fit_map_zoom(min_pnt, max_pnt)
+
         else:
             self.map_edit.clean_map()
 
