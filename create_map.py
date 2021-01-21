@@ -49,13 +49,13 @@ class QueryMap:
 
         return min_pnt
 
-    def _calculate_max_point(self, point_list: list):
+    def _calculate_max_point(self, point_list: pd.DataFrame):
         max_pnt = point_list[['Latitude',
                               'Longitude']].max().values.tolist()
 
         return max_pnt
 
-    def _show_points_in_map(self, point_list: list):
+    def _show_points_in_map(self, point_list: pd.DataFrame):
         if len(point_list) > 0:
             latitude = float(point_list['Latitude'].iloc[0])
             longitude = float(point_list['Longitude'].iloc[0])
