@@ -10,7 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import QtWebEngineWidgets
-from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
+from PyQt5.QtCore import QDate, QTime, QDateTime, Qt, QFile
+from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 
 from create_map import QueryMap, MapIterator
@@ -107,42 +108,60 @@ class Ui_MainWindow(object):
         self.start_date_label.setText(
             _translate("MainWindow", "Fecha inicial"))
 
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
+        self.map_iterator = None
+        self._show_map()
+        self._init_nb_ComboBox()
+        self.ui.StartDateEdit.setMinimumDate(QDate(2015, 1, 1))
+        self.ui.EndDateEdit.setMinimumDate(QDate(2015, 1, 1))
+        self.ui.QueryPushButton.clicked.connect(
+            self._show_marks_by_neighborhood_date)
+
+        self.ui.NextPushButton.clicked.connect(self._show_marks_next_date)
+        self.ui.BackPushButton.clicked.connect(self._show_marks_back_date)
+
     def _init_nb_ComboBox(self):
         query_df = QueryDF('incidents.csv')
         nb_list = query_df.get_neighborhood_list()
 
-        self.nb_ComboBox.addItems(nb_list)
+        self.ui.nb_ComboBox.addItems(nb_list)
 
     def _show_map(self):
         self.map = QueryMap('incidents.csv')
         data = self.map.show_map()
-        self.webEngineView.setHtml(data.getvalue().decode())
+        self.ui.webEngineView.setHtml(data.getvalue().decode())
 
     def _update_map(self, data, date, num_inc: int):
         if num_inc > 0:
             date = date.strftime("%m-%Y")
 
-            self.month_desc_label.setText(str(date))
+            self.ui.month_desc_label.setText(str(date))
 
-            self.webEngineView.setHtml(data.getvalue().decode())
-            self.incidents_desc_label.setText(str(num_inc))
+            self.ui.webEngineView.setHtml(data.getvalue().decode())
+            self.ui.incidents_desc_label.setText(str(num_inc))
 
     def _show_marks_by_neighborhood(self):
-        nbh_name = self.nb_ComboBox.toPlainText()
+        nbh_name = self.ui.nb_ComboBox.toPlainText()
         data, num_inc = self.map.show_marks_by_neighborhood(nbh_name)
-        self.webEngineView.setHtml(data.getvalue().decode())
-        self.incidents_desc_label.setText(str(num_inc))
+        self.ui.webEngineView.setHtml(data.getvalue().decode())
+        self.ui.incidents_desc_label.setText(str(num_inc))
 
     def _show_marks_by_neighborhood_date(self):
-        nbh_name = str(self.nb_ComboBox.currentText())
-        start_date = self.StartDateEdit.date().toPyDate()
-        end_date = self.EndDateEdit.date().toPyDate()
+        nbh_name = str(self.ui.nb_ComboBox.currentText())
+        start_date = self.ui.StartDateEdit.date().toPyDate()
+        end_date = self.ui.EndDateEdit.date().toPyDate()
 
         self.map_iterator = self.map.show_marks_by_neighborhood_and_date_range(
             nbh_name, start_date, end_date)
 
-        self.BackPushButton.setDisabled(True)
-        self.NextPushButton.setDisabled(False)
+        self.ui.BackPushButton.setDisabled(True)
+        self.ui.NextPushButton.setDisabled(False)
         data, num_inc, date = self.map_iterator.show_reg()
 
         self._update_map(data, date, num_inc)
@@ -152,9 +171,9 @@ class Ui_MainWindow(object):
             data, num_inc, date, end = self.map_iterator.show_next_reg()
 
             if end:
-                self.NextPushButton.setDisabled(True)
+                self.ui.NextPushButton.setDisabled(True)
             else:
-                self.BackPushButton.setDisabled(False)
+                self.ui.BackPushButton.setDisabled(False)
 
             self._update_map(data, date, num_inc)
 
@@ -163,32 +182,18 @@ class Ui_MainWindow(object):
             data, num_inc, date, end = self.map_iterator.show_back_reg()
 
             if end:
-                self.BackPushButton.setDisabled(True)
+                self.ui.BackPushButton.setDisabled(True)
             else:
-                self.NextPushButton.setDisabled(False)
+                self.ui.NextPushButton.setDisabled(False)
 
             self._update_map(data, date, num_inc)
-
-    def initUI(self):
-        self.map_iterator = None
-        self._show_map()
-        self._init_nb_ComboBox()
-        self.StartDateEdit.setMinimumDate(QDate(2015, 1, 1))
-        self.EndDateEdit.setMinimumDate(QDate(2015, 1, 1))
-        self.QueryPushButton.clicked.connect(
-            self._show_marks_by_neighborhood_date)
-
-        self.NextPushButton.clicked.connect(self._show_marks_next_date)
-        self.BackPushButton.clicked.connect(self._show_marks_back_date)
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(["NY Incidents Map"])
 
     mainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(mainWindow)
-    ui.initUI()
-    mainWindow.show()
+    window = MainWindow()
+    window.show()
 
     sys.exit(app.exec())
