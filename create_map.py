@@ -9,7 +9,7 @@ from query_incidents import QueryDF
 class EditMap:
     def __init__(self, location: list):
         self.location = location
-        self.map = folium.Map(location, zoom_start=200)
+        self.map = folium.Map(location, zoom_start=100)
 
     def create_markercluster(self):
         self.marker_cluster = folium.plugins.MarkerCluster().add_to(self.map)
