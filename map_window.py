@@ -149,16 +149,21 @@ class MainWindow(QMainWindow):
         start_date = self.ui.StartDateEdit.date().toPyDate()
         end_date = self.ui.EndDateEdit.date().toPyDate()
 
+        # Get map iterator for move between registers
         self.map_iterator = self.map.show_marks_by_neighborhood_and_date_range(
             nbh_name, start_date, end_date)
 
+        # Show the first register
         data, num_inc, date = self.map_iterator.show_reg()
 
+        # Disable back and next buttons by default
         self.ui.BackPushButton.setDisabled(True)
         self.ui.NextPushButton.setDisabled(True)
 
+        # Get number of registers
         num_regs = self.map_iterator.get_num_regs()
 
+        # Only disable back and next buttons if there are more than one register
         if num_regs > 1:
             self.ui.NextPushButton.setDisabled(False)
 
@@ -181,7 +186,8 @@ class MainWindow(QMainWindow):
 
             if end:
                 self.ui.BackPushButton.setDisabled(True)
-                self.ui.NextPushButton.setDisabled(False)
+
+            self.ui.NextPushButton.setDisabled(False)
 
             self._update_map(data, date, num_inc)
 
