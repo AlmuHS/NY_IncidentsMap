@@ -44,7 +44,7 @@ class ProcessFile:
         self.incidents_mat = np.genfromtxt(
             self.filename, dtype=object, delimiter='\t')
 
-    def fill_incident_city(self):
+    def fill_incident_neighborhood(self):
         pg_connect = PostGISQuery()
         city_query = CityQuery(pg_connect)
 
@@ -81,7 +81,7 @@ class ProcessFile:
 
 
 file_process = ProcessFile("incidents.txt")
-incidents_mat = file_process.fill_incident_city()
+incidents_mat = file_process.fill_incident_neighborhood()
 incidents_mat = file_process.remove_day_from_date()
 print(incidents_mat)
 file_process.export_to_csv("incidents.csv")
