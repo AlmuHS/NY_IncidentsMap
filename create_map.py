@@ -43,7 +43,7 @@ class QueryMap:
 
         self.map_edit = EditMap([40.541, -74.178])
 
-    def _calculate_min_point(self, point_list: list):
+    def _calculate_min_point(self, point_list: pd.DataFrame):
         min_pnt = point_list[['Latitude',
                               'Longitude']].min().values.tolist()
 
@@ -124,16 +124,19 @@ class MapIterator:
         self.query_df = query_df
         self.date_list = date_list
         self.index = 0
-        self.end = False
+        self.endl = False
+        self.endr = False
 
     def show_reg(self):
         query_tool = QueryMap(df=self.query_df)
 
-        if self.date_list and (self.index in range(0, len(self.date_list))):
+        date = 0
+
+        if not self.date_list:
+            self.endl = True
+            self.endr = True
+        elif self.date_list and (self.index >= 0 and self.index < len(self.date_list)):
             date = self.date_list[self.index]
-        else:
-            date = 0
-            self.end = True
 
         map_data, num_inc = query_tool.show_marks_by_date(date)
 
@@ -142,24 +145,24 @@ class MapIterator:
     def show_next_reg(self):
         if self.index < len(self.date_list)-1:
             self.index += 1
-            self.end = False
+            self.endr = False
 
         map_data, num_inc, date = self.show_reg()
 
         if self.index == len(self.date_list)-1:
-            self.end = True
+            self.endr = True
 
-        return map_data, num_inc, date, self.end
+        return map_data, num_inc, date, self.endr
 
     def show_back_reg(self):
 
         if self.index >= 0:
             self.index -= 1
-            self.end = False
+            self.endl = False
 
         map_data, num_inc, date = self.show_reg()
 
         if self.index == 0:
-            self.end = True
+            self.endl = True
 
-        return map_data, num_inc, date, self.end
+        return map_data, num_inc, date, self.endl
