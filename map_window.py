@@ -110,6 +110,8 @@ class MainWindow(QMainWindow):
         self.ui.EndDateEdit.setMinimumDate(QDate(2015, 1, 1))
         self.ui.QueryPushButton.clicked.connect(
             self._show_marks_by_neighborhood_date)
+        self.ui.BackPushButton.setDisabled(True)
+        self.ui.NextPushButton.setDisabled(True)
 
         self.ui.NextPushButton.clicked.connect(self._show_marks_next_date)
         self.ui.BackPushButton.clicked.connect(self._show_marks_back_date)
@@ -129,7 +131,7 @@ class MainWindow(QMainWindow):
         if num_inc > 0:
             date = date.strftime("%m-%Y")
             self.ui.month_desc_label.setText(str(date))
-        else:
+        elif num_inc == 0:
             self.ui.month_desc_label.setText("")
 
         self.ui.webEngineView.setHtml(data.getvalue().decode())
@@ -140,6 +142,7 @@ class MainWindow(QMainWindow):
         data, num_inc = self.map.show_marks_by_neighborhood(nbh_name)
         self.ui.webEngineView.setHtml(data.getvalue().decode())
         self.ui.incidents_desc_label.setText(str(num_inc))
+        self.ui.NextPushButton.setDisabled(False)
 
     def _show_marks_by_neighborhood_date(self):
         nbh_name = str(self.ui.nb_ComboBox.currentText())
@@ -149,9 +152,15 @@ class MainWindow(QMainWindow):
         self.map_iterator = self.map.show_marks_by_neighborhood_and_date_range(
             nbh_name, start_date, end_date)
 
-        self.ui.BackPushButton.setDisabled(True)
-        self.ui.NextPushButton.setDisabled(False)
         data, num_inc, date = self.map_iterator.show_reg()
+
+        self.ui.BackPushButton.setDisabled(True)
+        self.ui.NextPushButton.setDisabled(True)
+
+        num_regs = self.map_iterator.get_num_regs()
+
+        if num_regs > 1:
+            self.ui.NextPushButton.setDisabled(False)
 
         self._update_map(data, date, num_inc)
 
@@ -161,8 +170,8 @@ class MainWindow(QMainWindow):
 
             if end:
                 self.ui.NextPushButton.setDisabled(True)
-            else:
-                self.ui.BackPushButton.setDisabled(False)
+
+            self.ui.BackPushButton.setDisabled(False)
 
             self._update_map(data, date, num_inc)
 
@@ -172,7 +181,6 @@ class MainWindow(QMainWindow):
 
             if end:
                 self.ui.BackPushButton.setDisabled(True)
-            else:
                 self.ui.NextPushButton.setDisabled(False)
 
             self._update_map(data, date, num_inc)

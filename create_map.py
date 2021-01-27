@@ -127,6 +127,9 @@ class MapIterator:
         self.endl = False
         self.endr = False
 
+    def get_num_regs(self):
+        return len(self.date_list)
+
     def show_reg(self):
         query_tool = QueryMap(df=self.query_df)
 
