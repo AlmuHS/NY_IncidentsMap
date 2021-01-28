@@ -3,11 +3,13 @@ import numpy as np
 import psycopg2
 from postgis.psycopg import register
 
+import settings as set
+
 
 class PostGISQuery:
     def setup_pg_connection(self):
         connection = psycopg2.connect(
-            host="localhost", database="postgis_db", user="postgis_test", password="postgis")
+            host=set.host, database=set.database, user=set.user, password=set.password)
 
         register(connection)
         self.cursor = connection.cursor()
