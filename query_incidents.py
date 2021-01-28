@@ -24,16 +24,6 @@ class QueryDF:
 
         return nb_list
 
-    def _get_date_str(self, year: int, month: int):
-        if month < 10:
-            month_str = f"0{month}"
-        else:
-            month_str = f"{month}"
-
-        date_str = f"{year}-{month_str}"
-
-        return date_str
-
     def search_by_date_range(self, date_start: str, date_end: str):
         date_end = pd.to_datetime(date_end)
         date_start = pd.to_datetime(date_start)
