@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import pandas as pd
 import folium
 import folium.plugins
@@ -119,8 +121,10 @@ class QueryMap:
         return map_data
 
 
-class MapIterator:
+class MapIterator(QueryMap):
     def __init__(self, query_df: pd.DataFrame, date_list: list):
+        super().__init__(df=query_df)
+
         self.query_df = query_df
         self.date_list = date_list
         self.index = 0
@@ -131,8 +135,6 @@ class MapIterator:
         return len(self.date_list)
 
     def show_reg(self):
-        query_tool = QueryMap(df=self.query_df)
-
         date = 0
 
         if not self.date_list:
@@ -141,7 +143,7 @@ class MapIterator:
         elif self.date_list and (self.index >= 0 and self.index < len(self.date_list)):
             date = self.date_list[self.index]
 
-        map_data, num_inc = query_tool.show_marks_by_date(date)
+        map_data, num_inc = super().show_marks_by_date(date)
 
         return map_data, num_inc, date
 
