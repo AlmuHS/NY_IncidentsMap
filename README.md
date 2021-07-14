@@ -230,7 +230,7 @@ La interfaz quedará así:
 	
 	Se nos abrirá una ventana como esta:
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 22-26-14.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2022-26-14.png)
 
 
 ### Funcionamiento de la aplicación
@@ -241,19 +241,19 @@ Una vez abierta la aplicación, utilizamos los controles para seleccionar barrio
 
 	Para seleccionar el barrio, pulsamos sobre el menú desplegable, y seleccionamos el barrio de nuestro interés dentro de la lista
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-28-14.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2018-28-14.png)
 	
 - **Selección de fechas**
 
 	Para seleccionar la fecha, cambiamos los valores de los cuadros "Fecha Inicial" y "Fecha Final"
 
-	![](memoria_raw/Captura de pantalla de 2021-01-27 22-28-36.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2022-28-36.png)
 	
 - **Inicio de la consulta**
 
 	Pulsamos el botón "Consultar" para iniciar la consulta
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-28-56.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-28-56.png)
 	
 	Se nos mostrará el primer registro localizado en ese rango de fechas, con los marcadores situados en las posiciones donde se han producido los incidentes. El campo "Mes" se rellenará con el mes donde se ha producido dicho registro, y el campo "# incidentes" mostrará el número de incidentes encontrados para dicho mes.
 	
@@ -261,27 +261,27 @@ Una vez abierta la aplicación, utilizamos los controles para seleccionar barrio
 	
 	En caso de que haya mas de un marcador sobre las mismas coordenadas, se nos mostrarán los puntos agrupados en un círculo, indicando el número de incidentes que hay en dicha zona.
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-31-16.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-31-16.png)
 	
 	Si pulsamos sobre el círculo, se nos mostrarán los marcadores de forma individual
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-31-26.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-31-26.png)
 	
 - **Avance y retroceso de registros**
 
 	Pulsando los botones de "<<" y ">>", podemos avanzar y retroceder en los diferentes días registrados en nuestro conjunto de resultados. El zoom y la posición del mapa se reajustará a la posición del mapa donde se sitúen los marcadores.
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-44-26.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-44-26.png)
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-44-35.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-44-35.png)
 	
 	Al llegar al último registro del mapa, el botón ">>" se desactivará
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-54-25.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-54-25.png)
 	
 	De igual forma, al situarnos en el primer registro del mapa, el botón "<<" se desactivará.
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 18-56-45.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-56-45.png)
 	
 	Los campos "Mes" y "# incidentes" se irán actualizando con los datos del registro actual.
 	
@@ -289,10 +289,10 @@ Una vez abierta la aplicación, utilizamos los controles para seleccionar barrio
 
 	Si realizamos una consulta que no ha obtenido ningún resultado, el mapa se situará en su posición inicial, el campo "Mes" se vaciará, y el "# incidentes" se pondrá a 0.
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 22-25-04.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 22-25-04.png)
 	
 - **Consulta con un único resultado**
 
 	En caso de que la consulta devuelva un único resultado, el registro obtenido se mostrará sobre el mapa, pero los botones de avanzar y retroceder se mostrarán desactivados.
 	
-	![](memoria_raw/Captura de pantalla de 2021-01-27 22-31-02.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 22-31-02.png)
