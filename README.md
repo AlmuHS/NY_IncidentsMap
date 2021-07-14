@@ -253,7 +253,7 @@ Una vez abierta la aplicación, utilizamos los controles para seleccionar barrio
 
 	Pulsamos el botón "Consultar" para iniciar la consulta
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-28-56.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2018-28-56.png)
 	
 	Se nos mostrará el primer registro localizado en ese rango de fechas, con los marcadores situados en las posiciones donde se han producido los incidentes. El campo "Mes" se rellenará con el mes donde se ha producido dicho registro, y el campo "# incidentes" mostrará el número de incidentes encontrados para dicho mes.
 	
@@ -261,19 +261,19 @@ Una vez abierta la aplicación, utilizamos los controles para seleccionar barrio
 	
 	En caso de que haya mas de un marcador sobre las mismas coordenadas, se nos mostrarán los puntos agrupados en un círculo, indicando el número de incidentes que hay en dicha zona.
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-31-16.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2018-31-16.png)
 	
 	Si pulsamos sobre el círculo, se nos mostrarán los marcadores de forma individual
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-31-26.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2018-31-26.png)
 	
 - **Avance y retroceso de registros**
 
 	Pulsando los botones de "<<" y ">>", podemos avanzar y retroceder en los diferentes días registrados en nuestro conjunto de resultados. El zoom y la posición del mapa se reajustará a la posición del mapa donde se sitúen los marcadores.
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-44-26.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2018-44-26.png)
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-44-35.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2018-44-35.png)
 	
 	Al llegar al último registro del mapa, el botón ">>" se desactivará
 	
@@ -281,7 +281,7 @@ Una vez abierta la aplicación, utilizamos los controles para seleccionar barrio
 	
 	De igual forma, al situarnos en el primer registro del mapa, el botón "<<" se desactivará.
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 18-56-45.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2018-56-45.png)
 	
 	Los campos "Mes" y "# incidentes" se irán actualizando con los datos del registro actual.
 	
@@ -289,10 +289,10 @@ Una vez abierta la aplicación, utilizamos los controles para seleccionar barrio
 
 	Si realizamos una consulta que no ha obtenido ningún resultado, el mapa se situará en su posición inicial, el campo "Mes" se vaciará, y el "# incidentes" se pondrá a 0.
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 22-25-04.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2022-25-04.png)
 	
 - **Consulta con un único resultado**
 
 	En caso de que la consulta devuelva un único resultado, el registro obtenido se mostrará sobre el mapa, pero los botones de avanzar y retroceder se mostrarán desactivados.
 	
-	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura de pantalla de 2021-01-27 22-31-02.png)
+	![](https://raw.githubusercontent.com/AlmuHS/NY_IncidentsMap/master/memoria_raw/Captura%20de%20pantalla%20de%202021-01-27%2022-31-02.png)
